@@ -3,119 +3,80 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dropdown } from 'primereact/dropdown';
+import { Checkbox } from 'primereact/checkbox';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 
 const FormLayoutDemo = () => {
-    const [dropdownItem, setDropdownItem] = useState(null);
-    const dropdownItems = [
-        { name: 'Option 1', code: 'Option 1' },
-        { name: 'Option 2', code: 'Option 2' },
-        { name: 'Option 3', code: 'Option 3' }
+    const products = [
+        {nombre:'aceite', codigo:'62107278B8A51', pCompra:'$12.00', pVenta:'$22.00', descripcion:'Abarrotes', categoria:'Cajas', unidad:'Pieza', marca:'', medida: '', ubicacion:'Pasillo A, Estante AA', stock:'1', estado:'Activo', opciones :''}
     ];
+    const iconsOption = () =>{
+        return(
+            <div>
+                <Button icon="pi pi-pencil" className="p-button-rounded p-button-warning" aria-label="Editar" />
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-danger" aria-label="Eliminar" />
+            </div>
+        )
+    }
 
     return (
         <div className="grid">
-            <div className="col-12 md:col-6">
-                <div className="card p-fluid">
-                    <h5>Vertical</h5>
-                    <div className="field">
-                        <label htmlFor="name1">Name</label>
-                        <InputText id="name1" type="text" />
-                    </div>
-                    <div className="field">
-                        <label htmlFor="email1">Email</label>
-                        <InputText id="email1" type="text" />
-                    </div>
-                    <div className="field">
-                        <label htmlFor="age1">Age</label>
-                        <InputText id="age1" type="text" />
-                    </div>
-                </div>
-
-                <div className="card p-fluid">
-                    <h5>Vertical Grid</h5>
-                    <div className="formgrid grid">
-                        <div className="field col">
-                            <label htmlFor="name2">Name</label>
-                            <InputText id="name2" type="text" />
-                        </div>
-                        <div className="field col">
-                            <label htmlFor="email2">Email</label>
-                            <InputText id="email2" type="text" />
+            <div className="col-12 md:col-12">
+                <div className="card ">
+                    <div className='d-flex flex-wrap justify-content-between'>
+                        <h5>Catalogo de Productos</h5>
+                        <div className='d-flex flex-wrap'>
+                            <Button label="Limpiar" className="p-button-warning me-1" icon='pi pi-pencil' iconPos='right'/>
+                            <Button label="Nuevo" className="p-button-success me-1" icon='pi pi-plus' iconPos='right'/>
+                            <Button label="Imprimir" className="p-button-info" icon='pi pi-print' iconPos='right'/>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div className="col-12 md:col-6">
-                <div className="card p-fluid">
-                    <h5>Horizontal</h5>
-                    <div className="field grid">
-                        <label htmlFor="name3" className="col-12 mb-2 md:col-2 md:mb-0">Name</label>
-                        <div className="col-12 md:col-10">
-                            <InputText id="name3" type="text" />
+                    <div className='d-flex flex-wrap justify-content-between p-fluid'>
+                        <div className="field col-lg-2 col-12">
+                            <div htmlFor="name1">Nombre</div>
+                            <InputText id="name1" type="text" placeholder='Nombre'/>
+                        </div>
+                        <div className="field col-lg-2 col-12">
+                            <div htmlFor="name1">Codigo</div>
+                            <InputText id="name1" type="text" placeholder='Codigo'/>
+                        </div>
+                        <div className="field col-lg-2 col-12">
+                            <div htmlFor="name1">Categoria</div>
+                            <Dropdown id="name1" type="text" placeholder='--Seleccione--'/>
+                        </div>
+                        <div className="field col-lg-2 col-12">
+                            <div htmlFor="name1">Ubicacion</div>
+                            <Dropdown id="name1" type="text" placeholder='--Seleccione--'/>
+                        </div>
+                        <div className="field col-lg-2 col-12">
+                            <div htmlFor="name1">Estatus</div>
+                            <Dropdown id="name1" type="text" placeholder='--Seleccione--'/>
+                        </div>
+                        <div className="field col-lg-2 col-12">
+                            <div htmlFor="name1">Articulos</div>
+                            <div className='mt-2'>
+                                <Checkbox id="name1" type="text"/>
+                                <label className='ms-1 my-auto'>Stock Minimo</label>
+                            </div>
                         </div>
                     </div>
-                    <div className="field grid">
-                        <label htmlFor="email3" className="col-12 mb-2 md:col-2 md:mb-0">Email</label>
-                        <div className="col-12 md:col-10">
-                            <InputText id="email3" type="text" />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="card">
-                    <h5>Inline</h5>
-                    <div className="formgroup-inline">
-                        <div className="field">
-                            <label htmlFor="firstname1" className="p-sr-only">Firstname</label>
-                            <InputText id="firstname1" type="text" placeholder="Firstname" />
-                        </div>
-                        <div className="field">
-                            <label htmlFor="lastname1" className="p-sr-only">Lastname</label>
-                            <InputText id="lastname1" type="text" placeholder="Lastname" />
-                        </div>
-                        <Button label="Submit"></Button>
-                    </div>
-                </div>
-
-                <div className="card">
-                    <h5>Help Text</h5>
-                    <div className="field p-fluid">
-                        <label htmlFor="username">Username</label>
-                        <InputText id="username" type="text" />
-                        <small>Enter your username to reset your password.</small>
-                    </div>
-                </div>
-            </div>
-
-            <div className="col-12">
-                <div className="card">
-                    <h5>Advanced</h5>
-                    <div className="p-fluid formgrid grid">
-                        <div className="field col-12 md:col-6">
-                            <label htmlFor="firstname2">Firstname</label>
-                            <InputText id="firstname2" type="text" />
-                        </div>
-                        <div className="field col-12 md:col-6">
-                            <label htmlFor="lastname2">Lastname</label>
-                            <InputText id="lastname2" type="text" />
-                        </div>
-                        <div className="field col-12">
-                            <label htmlFor="address">Address</label>
-                            <InputTextarea id="address" rows="4" />
-                        </div>
-                        <div className="field col-12 md:col-6">
-                            <label htmlFor="city">City</label>
-                            <InputText id="city" type="text" />
-                        </div>
-                        <div className="field col-12 md:col-3">
-                            <label htmlFor="state">State</label>
-                            <Dropdown id="state" value={dropdownItem} onChange={(e) => setDropdownItem(e.value)} options={dropdownItems} optionLabel="name" placeholder="Select One"></Dropdown>
-                        </div>
-                        <div className="field col-12 md:col-3">
-                            <label htmlFor="zip">Zip</label>
-                            <InputText id="zip" type="text" />
-                        </div>
+                    <div>
+                        <DataTable value={products}  responsiveLayout="scroll">
+                            <Column field="nombre" header="Nombre"></Column>
+                            <Column field="codigo" header="Codigo"></Column>
+                            <Column field="pCompra" header="P.Compra"></Column>
+                            <Column field="pVenta" header="P.Venta"></Column>
+                            <Column field="descripcion" header="Descripcion"></Column>
+                            <Column field="categoria" header="Categoria"></Column>
+                            <Column field="unidad" header="Unidad"></Column>
+                            <Column field="marca" header="Marca"></Column>
+                            <Column field="medida" header="Medida"></Column>
+                            <Column field="ubicacion" header="Ubicacion"></Column>
+                            <Column field="stock" header="Stock"></Column>
+                            <Column field="estado" header="Estado"></Column>
+                            <Column field="opciones" body={iconsOption} header="Opciones"></Column>
+                        </DataTable>
                     </div>
                 </div>
             </div>
