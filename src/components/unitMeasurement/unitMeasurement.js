@@ -162,7 +162,7 @@ const UnitTable = () => {
             <div className="col-12 md:col-12">
                 <div className="card">
                     <div className=' header-content'>
-                        <h5>Catalogo de Categorias</h5>
+                        <h5>Catalogo de Unidades de Medida</h5>
                     </div>
                     <form onSubmit={formik.handleSubmit}>
                         <div className='d-flex flex-wrap'>
@@ -195,7 +195,7 @@ const UnitTable = () => {
                             <Column field="opciones" body={iconsOption} header="Opciones"></Column>
                         </DataTable>
                     </div>
-                    <Dialog visible={productDialog} style={{ width: '450px' }} header="Detalles de categoria" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
+                    <Dialog visible={productDialog} style={{ width: '450px' }} header="Detalles de unidades de medida" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
                         <div className="field">
                             <label htmlFor="name">Nombre</label>
                             <InputText id="name" value={product.nombre} onChange={(e) => onInputChange(e, 'nombre')} required autoFocus className={classNames({ 'p-invalid': submitted && !product.nombre })} />

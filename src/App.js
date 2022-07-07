@@ -190,8 +190,8 @@ const App = () => {
         {
             label: 'Entradas', icon: 'pi pi-fw pi-sitemap',
             items: [
-                { label: 'Ingresos', icon: 'pi pi-fw pi-id-card', to: '/formlayout' },
-                { label: 'Provedores', icon: 'pi pi-fw pi-check-square', to: '/input' },
+                { label: 'Ingresos', icon: 'pi pi-money-bill', to: '/formlayout' },
+                { label: 'Provedores', icon: 'pi pi-car', to: '/input' },
             ]
         },
         {
