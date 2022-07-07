@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useFormik } from 'formik';
 import { classNames } from 'primereact/utils';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { ProductService } from '../service/ProductService';
 import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
 import { Rating } from 'primereact/rating';
@@ -12,6 +12,9 @@ import { InputNumber } from 'primereact/inputnumber';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
+import { Checkbox } from 'primereact/checkbox';
+
+import './products.scss';
 
 const FormLayoutDemo = () => {
     const productsTable = [
@@ -47,20 +50,18 @@ const FormLayoutDemo = () => {
         setSubmitted(false);
         setProductDialog(true);
     }
+    const clearFilter = () =>{
+        formik.resetForm();
+    }
 
     const hideDialog = () => {
         setSubmitted(false);
         setProductDialog(false);
     }
-
-    const hideDeleteProductDialog = () => {
-        setDeleteProductDialog(false);
-    }
-
-    const saveProduct = () => {
+    const saveProduct = () => { debugger;
         setSubmitted(true);
 
-        if (product.name.trim()) {
+        if (product.nombre.trim()) {
             let _products = [...products];
             let _product = {...product};
             if (product.id) {
@@ -82,6 +83,20 @@ const FormLayoutDemo = () => {
         }
     }
 
+    const formik = useFormik({
+        initialValues: {
+            nombre: '',
+            codigo: '',
+            categoria: null,
+            ubicacion : null,
+            estatus: null,
+            stock: false
+        },
+        validate: (data) => {
+
+        }
+    });
+
     const editProduct = (product) => {
         setProduct({...product});
         setProductDialog(true);
@@ -90,14 +105,6 @@ const FormLayoutDemo = () => {
     const confirmDeleteProduct = (product) => {
         setProduct(product);
         setDeleteProductDialog(true);
-    }
-
-    const deleteProduct = () => {
-        let _products = products.filter(val => val.id !== product.id);
-        setProducts(_products);
-        setDeleteProductDialog(false);
-        setProduct(emptyProduct);
-        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
     }
 
     const findIndexById = (id) => {
@@ -120,6 +127,11 @@ const FormLayoutDemo = () => {
         }
         return id;
     }
+    const onCategoryChange = (e, name) => {debugger;
+        let _product = {...product};
+        _product[`${name}`] = e.value.name;
+        setProduct(_product);
+    }
 
     const onInputChange = (e, name) => {
         const val = (e.target && e.target.value) || '';
@@ -136,21 +148,24 @@ const FormLayoutDemo = () => {
 
         setProduct(_product);
     }
-
+    const hideDeleteProductDialog = () => {
+        setDeleteProductDialog(false);
+    }
     const actionBodyTemplate = (rowData) => {
         return (
             <React.Fragment>
-                <Button icon="pi pi-pencil" className="p-button-rounded p-button-success mr-2" onClick={() => editProduct(rowData)} />
-                <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => confirmDeleteProduct(rowData)} />
+                <Button icon="pi pi-pencil" className="p-button-rounded p-button-warning btn-size mr-2" onClick={() => editProduct(rowData)} />
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-danger btn-size" onClick={() => confirmDeleteProduct(rowData)} />
             </React.Fragment>
         );
     }
-    const productDialogFooter = (
-        <React.Fragment>
-            <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveProduct} />
-        </React.Fragment>
-    );
+    const deleteProduct = () => {
+        let _products = products.filter(val => val.id !== product.id);
+        setProducts(_products);
+        setDeleteProductDialog(false);
+        setProduct(emptyProduct);
+        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+    }
     const deleteProductDialogFooter = (
         <React.Fragment>
             <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeleteProductDialog} />
@@ -158,18 +173,66 @@ const FormLayoutDemo = () => {
         </React.Fragment>
     );
 
+    const productDialogFooter = (
+        <React.Fragment>
+            <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
+            <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveProduct} />
+        </React.Fragment>
+    );
+    const state = [
+        {id: 1, name: 'Activo'},
+        {id: 0, name: 'Inactivo'}
+    ]
+
     return (
-        <div className="datatable-crud-demo">
+        <div className="datatable-crud-demo products-catalog">
             <Toast ref={toast} />
-
             <div className="card">
-            <Button label="New" icon="pi pi-plus" className="p-button-success mr-2" onClick={openNew} />
-
-                <DataTable ref={dt} value={products} selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)}
+                <div className='header-content'>
+                    <h5>Catalogo de Productos</h5>
+                    <div>
+                        <Button label="Limpiar" className="p-button-warning me-1" icon='pi pi-pencil' iconPos='right' onClick={clearFilter}/>
+                        <Button label="Nuevo" className="p-button-success me-1" icon='pi pi-plus' iconPos='right' onClick={openNew} />
+                        <Button label="Imprimir" className="p-button-info" icon='pi pi-print' iconPos='right'/>
+                    </div>
+                </div>
+                <form onSubmit={formik.handleSubmit}>
+                    <div className='p-fluid filter-content'>
+                        <div className="field col-lg-2 col-12">
+                            <div>Nombre</div>
+                            <InputText type="search" placeholder='Nombre' name="nombre" value={formik.values.nombre} onChange={formik.handleChange}/>
+                        </div>
+                        <div className="field col-lg-2 col-12">
+                            <div>Codigo</div>
+                            <InputText type="search" placeholder='Codigo' name="codigo" value={formik.values.codigo} onChange={formik.handleChange}/>
+                        </div>
+                        <div className="field col-lg-2 col-12">
+                            <div>Categoria</div>
+                            <Dropdown type="text" placeholder='--Seleccione--' name="categoria" value={formik.values.categoria} onChange={formik.handleChange} /*options={countries} optionLabel="name"*//>
+                        </div>
+                        <div className="field col-lg-2 col-12">
+                            <div>Ubicacion</div>
+                            <Dropdown id="name1" type="text" placeholder='--Seleccione--' name="ubicacion" value={formik.values.ubicacion} onChange={formik.handleChange} /*options={countries} optionLabel="name"*//>
+                        </div>
+                        <div className="field col-lg-2 col-12">
+                            <div>Estatus</div>
+                            <Dropdown type="text" placeholder='--Seleccione--' name="estatus" value={formik.values.estatus} onChange={formik.handleChange} /*options={countries} optionLabel="name"*//>
+                        </div>
+                        <div className="field col-lg-2 col-12">
+                            <div>Articulos</div>
+                            <div className='mt-2'>
+                                <Checkbox id="stock" name='stock' checked={formik.values.stock} onChange={formik.handleChange}/>
+                                <label className='ms-1 my-auto'>Stock Minimo</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <DataTable ref={dt} value={products} selection={selectedProducts}
                     dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
                     responsiveLayout="scroll">
+                    
                     <Column field="nombre" header="Nombre"></Column>
                     <Column field="codigo" header="Codigo"></Column>
                     <Column field="pCompra" header="P.Compra"></Column>
@@ -195,15 +258,14 @@ const FormLayoutDemo = () => {
                 <div className="field">
                     <label htmlFor="codigo">Codigo</label>
                     <InputText id="codigo" value={product.codigo} onChange={(e) => onInputChange(e, 'codigo')} required />
-                    {submitted && !product.codigo && <small className="p-error">Codigo is required.</small>}
                 </div>
                 <div className="field">
                     <label htmlFor="categoria">Categoria</label>
                     <Dropdown id="categoria" value={product.categoria} onChange={(e) => onInputChange(e, 'categoria')} required />
                 </div>
                 <div className="field">
-                    <label htmlFor="description">Description</label>
-                    <InputTextarea id="description" value={product.description} onChange={(e) => onInputChange(e, 'description')} required rows={3} cols={20} />
+                    <label htmlFor="description">Descripcion</label>
+                    <InputTextarea id="descripcion" value={product.descripcion} onChange={(e) => onInputChange(e, 'descripcion')} required rows={3} cols={20} />
                 </div>
                 <div className="field">
                     <label htmlFor="unidad">Unidad</label>
@@ -223,7 +285,7 @@ const FormLayoutDemo = () => {
                 </div>
                 <div className="field">
                     <label htmlFor="estado">Estado</label>
-                    <Dropdown id="estado" value={product.estado} onChange={(e) => onInputChange(e, 'estado')} required />
+                    <Dropdown id="estado" name='estado' value={product.estado} onChange={(e) => onCategoryChange(e, 'estado')} required options={state} optionLabel='name'/>
                 </div>
                 <div className="formgrid grid">
                     <div className="field col">
@@ -256,3 +318,7 @@ const comparisonFn = function (prevProps, nextProps) {
 };
 
 export default React.memo(FormLayoutDemo, comparisonFn);
+
+
+
+

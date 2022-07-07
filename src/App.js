@@ -8,6 +8,17 @@ import { AppFooter } from './AppFooter';
 import { AppMenu } from './AppMenu';
 import { AppConfig } from './AppConfig';
 
+
+import ProductsTable from './components/products/products';
+import CategoriesTable from './components/categories/categories';
+import UnitTable from './components/unitMeasurement/unitMeasurement';
+import LocationTable from './components/location/location';
+import DecreaseTable from './components/decrease/decrease';
+import MarksTable from './components/marks/marks';
+import MeasuresTable from './components/measures/measures';
+
+
+
 import Dashboard from './components/Dashboard';
 import ButtonDemo from './components/ButtonDemo';
 import ChartDemo from './components/ChartDemo';
@@ -161,19 +172,19 @@ const App = () => {
         {
             label: 'Home',
             items: [{
-                label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/'
+                label: 'Dashboard', icon: 'pi pi-home', to: '/'
             }]
         },
         {
             label: 'Almacen', icon: 'pi pi-fw pi-sitemap',
             items: [
-                { label: 'Productos', icon: 'pi pi-fw pi-id-card', to: '/formlayout' },
-                { label: 'Categorias', icon: 'pi pi-fw pi-check-square', to: '/input' },
-                { label: "Unidad de Medida", icon: "pi pi-fw pi-bookmark", to: "/floatlabel" },
-                { label: "Ubicaciones", icon: "pi pi-fw pi-exclamation-circle", to: "invalidstate" },
-                { label: 'Merma', icon: 'pi pi-fw pi-mobile', to: '/button' },
-                { label: 'Marcas', icon: 'pi pi-fw pi-table', to: '/table' },
-                { label: 'Medidas', icon: 'pi pi-fw pi-list', to: '/list' },
+                { label: 'Productos', icon: 'pi pi-circle', to: '/products' },
+                { label: 'Categorias', icon: 'pi pi-circle', to: '/categories' },
+                { label: "Unidad de Medida", icon: "pi pi-circle", to: "/unit" },
+                { label: "Ubicaciones", icon: "pi pi-circle", to: "/location" },
+                { label: 'Merma', icon: 'pi pi-circle', to: '/decrease' },
+                { label: 'Marcas', icon: 'pi pi-circle', to: '/marks' },
+                { label: 'Medidas', icon: 'pi pi-circle', to: '/measures' },
             ]
         },
         {
@@ -252,6 +263,18 @@ const App = () => {
             <div className="layout-main-container">
                 <div className="layout-main">
                     <Route path="/" exact render={() => <Dashboard colorMode={layoutColorMode} location={location} />} />
+
+                    <Route path="/products" component={ProductsTable}/>
+                    <Route path="/categories" component={CategoriesTable}/>
+                    <Route path="/unit" component={UnitTable}/>
+                    <Route path="/location" component={LocationTable}/>
+                    <Route path="/decrease" component={DecreaseTable}/>
+                    <Route path="/marks" component={MarksTable} />
+                    <Route path="/measures" component={MeasuresTable} />
+
+
+
+
                     <Route path="/formlayout" component={FormLayoutDemo} />
                     <Route path="/input" component={InputDemo} />
                     <Route path="/floatlabel" component={FloatLabelDemo} />

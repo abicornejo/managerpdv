@@ -5,10 +5,9 @@ import { Button } from 'primereact/button';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 
-export const InputDemo = () => {
-
-    const categories = [
-        {nombre:'aceite', descripcion:'Abarrotes', estatus:'Activo'}
+const LocationTable = () => {
+    const location = [
+        {ubicacion:'Pasillo 1, estante 2', descripcion:'Material de albanileria', estatus:'Activo'}
     ];
     const iconsOption = () =>{
         return(
@@ -24,7 +23,7 @@ export const InputDemo = () => {
             <div className="col-12 md:col-12">
                 <div className="card ">
                     <div className='d-flex flex-wrap justify-content-between'>
-                        <h5>Catalogo de Categorias</h5>
+                        <h5>Catalogo de Ubicaciones</h5>
                     </div>
                     <div className='d-flex flex-wrap'>
                         <div className="field col-lg-4 col-12 p-fluid">
@@ -33,7 +32,7 @@ export const InputDemo = () => {
                         </div>
                         
                         <div className="field col-lg-4 col-12 p-fluid">
-                            <div htmlFor="name1">Categoria</div>
+                            <div htmlFor="name1">Estatus</div>
                             <Dropdown id="name1" type="text" placeholder='--Seleccione--'/>
                         </div>
                         <div className='d-flex flex-wrap py-4'>
@@ -42,10 +41,10 @@ export const InputDemo = () => {
                         </div>
                     </div>
                     <div>
-                        <DataTable value={categories}  responsiveLayout="scroll"
+                        <DataTable value={location}  responsiveLayout="scroll"
                             dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
                             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown">
-                            <Column field="nombre" header="Nombre"></Column>
+                            <Column field="ubicacion" header="Ubicacion"></Column>
                             <Column field="descripcion" header="Descripcion"></Column>
                             <Column field="estatus" header="Estatus"></Column>
                             <Column field="opciones" body={iconsOption} header="Opciones"></Column>
@@ -61,4 +60,4 @@ const comparisonFn = function (prevProps, nextProps) {
     return prevProps.location.pathname === nextProps.location.pathname;
 };
 
-export default React.memo(InputDemo, comparisonFn);
+export default React.memo(LocationTable, comparisonFn);

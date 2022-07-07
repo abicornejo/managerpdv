@@ -1,189 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-import { SplitButton } from 'primereact/splitbutton';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 
 const ButtonDemo = () => {
-    const [loading1, setLoading1] = useState(false);
-    const [loading2, setLoading2] = useState(false);
-    const [loading3, setLoading3] = useState(false);
-    const [loading4, setLoading4] = useState(false);
-
-    const onLoadingClick1 = () => {
-        setLoading1(true);
-
-        setTimeout(() => {
-            setLoading1(false);
-        }, 2000);
-    }
-
-    const onLoadingClick2 = () => {
-        setLoading2(true);
-
-        setTimeout(() => {
-            setLoading2(false);
-        }, 2000);
-    }
-
-    const onLoadingClick3 = () => {
-        setLoading3(true);
-
-        setTimeout(() => {
-            setLoading3(false);
-        }, 2000);
-    }
-
-    const onLoadingClick4 = () => {
-        setLoading4(true);
-
-        setTimeout(() => {
-            setLoading4(false);
-        }, 2000);
-    }
-
-    const items = [
-        {
-            label: 'Update',
-            icon: 'pi pi-refresh'
-        },
-        {
-            label: 'Delete',
-            icon: 'pi pi-times'
-        },
-        {
-            label: 'Home',
-            icon: 'pi pi-home'
-        }
+    const merma = [
+        {fecha:'', producto: '', cantidad:'', descripcion:'', estatus:''}
     ];
-
+    const iconsOption = () =>{
+        return(
+            <div>
+                <Button icon="pi pi-pencil" className="p-button-rounded p-button-warning" aria-label="Editar" />
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-danger" aria-label="Eliminar" />
+            </div>
+        )
+    }
+    
     return (
         <div className="grid">
-            <div className="col-12 md:col-6">
-                <div className="card">
-                    <h5>Default</h5>
-                    <Button label="Submit" className="mr-2 mb-2"></Button>
-                    <Button label="Disabled" className="mr-2 mb-2" disabled></Button>
-                    <Button label="Link" className="p-button-link mb-2 mr-2"></Button>
-                </div>
-
-                <div className="card">
-                    <h5>Severities</h5>
-                    <Button label="Primary" className="mr-2 mb-2" />
-                    <Button label="Secondary" className="p-button-secondary mr-2 mb-2" />
-                    <Button label="Success" className="p-button-success mr-2 mb-2" />
-                    <Button label="Info" className="p-button-info mr-2 mb-2" />
-                    <Button label="Warning" className="p-button-warning mr-2 mb-2" />
-                    <Button label="Danger" className="p-button-danger mr-2 mb-2" />
-                </div>
-
-                <div className="card">
-                    <h5>Text</h5>
-                    <Button label="Primary" className="p-button-text mr-2 mb-2" />
-                    <Button label="Secondary" className="p-button-secondary p-button-text mr-2 mb-2" />
-                    <Button label="Success" className="p-button-success p-button-text mr-2 mb-2" />
-                    <Button label="Info" className="p-button-info p-button-text mr-2 mb-2" />
-                    <Button label="Warning" className="p-button-warning p-button-text mr-2 mb-2" />
-                    <Button label="Help" className="p-button-help p-button-text mr-2 mb-2" />
-                    <Button label="Danger" className="p-button-danger p-button-text mr-2 mb-2" />
-                    <Button label="Plain" className="p-button-plain p-button-text mr-2 mb-2" />
-                </div>
-
-                <div className="card">
-                    <h5>Outlined</h5>
-                    <Button label="Primary" className="p-button-outlined mr-2 mb-2" />
-                    <Button label="Secondary" className="p-button-outlined p-button-secondary mr-2 mb-2" />
-                    <Button label="Success" className="p-button-outlined p-button-success mr-2 mb-2" />
-                    <Button label="Info" className="p-button-outlined p-button-info mr-2 mb-2" />
-                    <Button label="Warning" className="p-button-outlined p-button-warning mr-2 mb-2" />
-                    <Button label="Help" className="p-button-outlined p-button-help mr-2 mb-2" />
-                    <Button label="Danger" className="p-button-outlined p-button-danger mr-2 mb-2" />
-                </div>
-
-                <div className="card">
-                    <h5>Button Group</h5>
-                    <span className="p-buttonset">
-                        <Button label="Save" icon="pi pi-check" />
-                        <Button label="Delete" icon="pi pi-trash" />
-                        <Button label="Cancel" icon="pi pi-times" />
-                    </span>
-                </div>
-
-                <div className="card">
-                    <h5>SplitButton</h5>
-                    <SplitButton label="Save" icon="pi pi-check" model={items} className="p-button-secondary mr-2 mb-2"></SplitButton>
-                    <SplitButton label="Save" icon="pi pi-check" model={items} className="p-button-success mr-2 mb-2"></SplitButton>
-                    <SplitButton label="Save" icon="pi pi-check" model={items} className="p-button-info mr-2 mb-2"></SplitButton>
-                    <SplitButton label="Save" icon="pi pi-check" model={items} className="p-button-warning mr-2 mb-2"></SplitButton>
-                    <SplitButton label="Save" icon="pi pi-check" model={items} className="p-button-danger mr-2 mb-2"></SplitButton>
-                </div>
-            </div>
-
-            <div className="col-12 md:col-6">
-                <div className="card">
-                    <h5>Icons</h5>
-                    <Button icon="pi pi-star-fill" className="mr-2 mb-2"></Button>
-                    <Button label="Bookmark" icon="pi pi-bookmark" className="mr-2 mb-2"></Button>
-                    <Button label="Bookmark" icon="pi pi-bookmark" iconPos="right" className="mr-2 mb-2"></Button>
-                </div>
-
-                <div className="card">
-                    <h5>Raised</h5>
-                    <Button label="Primary" className="p-button-raised mr-2 mb-2" />
-                    <Button label="Secondary" className="p-button-raised p-button-secondary mr-2 mb-2" />
-                    <Button label="Success" className="p-button-raised p-button-success mr-2 mb-2" />
-                    <Button label="Info" className="p-button-raised p-button-info mr-2 mb-2" />
-                    <Button label="Warning" className="p-button-raised p-button-warning mr-2 mb-2" />
-                    <Button label="Danger" className="p-button-raised p-button-danger mr-2 mb-2" />
-                </div>
-
-                <div className="card">
-                    <h5>Rounded</h5>
-                    <Button label="Primary" className="p-button-rounded mr-2 mb-2" />
-                    <Button label="Secondary" className="p-button-rounded p-button-secondary mr-2 mb-2" />
-                    <Button label="Success" className="p-button-rounded p-button-success mr-2 mb-2" />
-                    <Button label="Info" className="p-button-rounded p-button-info mr-2 mb-2" />
-                    <Button label="Warning" className="p-button-rounded p-button-warning mr-2 mb-2" />
-                    <Button label="Danger" className="p-button-rounded p-button-danger mr-2 mb-2" />
-                </div>
-
-                <div className="card">
-                    <h5>Rounded Icons</h5>
-                    <Button icon="pi pi-star" className="p-button-rounded mr-2 mb-2" />
-                    <Button icon="pi pi-bookmark" className="p-button-rounded p-button-secondary mr-2 mb-2" />
-                    <Button icon="pi pi-check" className="p-button-rounded p-button-success mr-2 mb-2" />
-                    <Button icon="pi pi-search" className="p-button-rounded p-button-info mr-2 mb-2" />
-                    <Button icon="pi pi-user" className="p-button-rounded p-button-warning mr-2 mb-2" />
-                    <Button icon="pi pi-sign-out" className="p-button-rounded p-button-danger mr-2 mb-2" />
-                </div>
-
-                <div className="card">
-                    <h5>Rounded Text</h5>
-                    <Button icon="pi pi-check" className="p-button-rounded p-button-text mr-2 mb-2" />
-                    <Button icon="pi pi-bookmark" className="p-button-rounded p-button-secondary p-button-text mr-2 mb-2" />
-                    <Button icon="pi pi-search" className="p-button-rounded p-button-success p-button-text mr-2 mb-2" />
-                    <Button icon="pi pi-user" className="p-button-rounded p-button-info p-button-text mr-2 mb-2" />
-                    <Button icon="pi pi-bell" className="p-button-rounded p-button-warning p-button-text mr-2 mb-2" />
-                    <Button icon="pi pi-heart" className="p-button-rounded p-button-help p-button-text mr-2 mb-2" />
-                    <Button icon="pi pi-times" className="p-button-rounded p-button-danger p-button-text mr-2 mb-2" />
-                    <Button icon="pi pi-filter" className="p-button-rounded p-button-plain p-button-text mr-2 mb-2" />
-                </div>
-
-                <div className="card">
-                    <h5>Rounded Outlined</h5>
-                    <Button icon="pi pi-check" className="p-button-rounded p-button-outlined mr-2 mb-2" />
-                    <Button icon="pi pi-bookmark" className="p-button-rounded p-button-secondary p-button-outlined mr-2 mb-2" />
-                    <Button icon="pi pi-search" className="p-button-rounded p-button-success p-button-outlined mr-2 mb-2" />
-                    <Button icon="pi pi-user" className="p-button-rounded p-button-info p-button-outlined mr-2 mb-2" />
-                    <Button icon="pi pi-bell" className="p-button-rounded p-button-warning p-button-outlined mr-2 mb-2" />
-                    <Button icon="pi pi-heart" className="p-button-rounded p-button-help p-button-outlined mr-2 mb-2" />
-                    <Button icon="pi pi-times" className="p-button-rounded p-button-danger p-button-outlined mr-2 mb-2" />
-                </div>
-
-                <div className="card">
-                    <h5>Loading</h5>
-                    <Button className="mr-2 mb-2" label="Search" icon="pi pi-search" loading={loading1} onClick={onLoadingClick1} />
-                    <Button className="mr-2 mb-2" label="Search" icon="pi pi-search" iconPos="right" loading={loading2} onClick={onLoadingClick2} />
-                    <Button className="mr-2 mb-2" icon="pi pi-search" loading={loading3} onClick={onLoadingClick3} />
-                    <Button className="mr-2 mb-2" label="Search" loading={loading4} onClick={onLoadingClick4} />
+            <div className="col-12 md:col-12">
+                <div className="card ">
+                    <div className='d-flex flex-wrap justify-content-between'>
+                        <h5>Catalogo de Merma</h5>
+                    </div>
+                    <div className='d-flex flex-wrap'>
+                        <div className="field col-lg-4 col-12 p-fluid">
+                            <div htmlFor="name1">Producto</div>
+                            <InputText id="name1" type="text" placeholder='Ubicacion'/>
+                        </div>
+                        <div className='d-flex flex-wrap py-4'>
+                            <Button label="Limpiar" className="p-button-warning me-1" icon='pi pi-pencil' iconPos='right'/>
+                            <Button label="Nuevo" className="p-button-success me-1" icon='pi pi-plus' iconPos='right'/>
+                        </div>
+                    </div>
+                    <div>
+                        <DataTable value={merma}  responsiveLayout="scroll"
+                            dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
+                            paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown">
+                            <Column field="fecha" header="Fecha"></Column>
+                            <Column field="producto" header="Producto"></Column>
+                            <Column field="cantidad" header="Cantidad"></Column>
+                            <Column field="descripcion" header="Descripcion"></Column>
+                            <Column field="opciones" body={iconsOption} header="Opciones"></Column>
+                        </DataTable>
+                    </div>
                 </div>
             </div>
         </div>
