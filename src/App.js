@@ -16,33 +16,14 @@ import LocationTable from './components/location/location';
 import DecreaseTable from './components/decrease/decrease';
 import MarksTable from './components/marks/marks';
 import MeasuresTable from './components/measures/measures';
+import EntrysTable from './components/entrys/entry'
+import ProvidersTable from './components/providers/providers'
 
 
 
-import Dashboard from './components/Dashboard';
-import ButtonDemo from './components/ButtonDemo';
-import ChartDemo from './components/ChartDemo';
-import Documentation from './components/Documentation';
-import FileDemo from './components/FileDemo';
-import FloatLabelDemo from './components/FloatLabelDemo';
+//import Dashboard from './components/Dashboard';
 import FormLayoutDemo from './components/FormLayoutDemo';
-import InputDemo from './components/InputDemo';
-import ListDemo from './components/ListDemo';
-import MenuDemo from './components/MenuDemo';
-import MessagesDemo from './components/MessagesDemo';
-import MiscDemo from './components/MiscDemo';
-import OverlayDemo from './components/OverlayDemo';
-import MediaDemo from './components/MediaDemo';
-import PanelDemo from './components/PanelDemo';
-import TableDemo from './components/TableDemo';
-import TreeDemo from './components/TreeDemo';
-import InvalidStateDemo from './components/InvalidStateDemo';
-import BlocksDemo from './components/BlocksDemo';
-import IconsDemo from './components/IconsDemo';
 
-import Crud from './pages/Crud';
-import EmptyPage from './pages/EmptyPage';
-import TimelineDemo from './pages/TimelineDemo';
 
 import PrimeReact from 'primereact/api';
 import { Tooltip } from 'primereact/tooltip';
@@ -190,8 +171,8 @@ const App = () => {
         {
             label: 'Entradas', icon: 'pi pi-fw pi-sitemap',
             items: [
-                { label: 'Ingresos', icon: 'pi pi-money-bill', to: '/formlayout' },
-                { label: 'Provedores', icon: 'pi pi-car', to: '/input' },
+                { label: 'Ingresos', icon: 'pi pi-money-bill', to: '/entrys' },
+                { label: 'Provedores', icon: 'pi pi-car', to: '/providers' },
             ]
         },
         {
@@ -262,8 +243,7 @@ const App = () => {
 
             <div className="layout-main-container">
                 <div className="layout-main">
-                    <Route path="/" exact render={() => <Dashboard colorMode={layoutColorMode} location={location} />} />
-
+                    {/*<Route path="/" exact render={() => <Dashboard colorMode={layoutColorMode} location={location} />} />*/}
                     <Route path="/products" component={ProductsTable}/>
                     <Route path="/categories" component={CategoriesTable}/>
                     <Route path="/unit" component={UnitTable}/>
@@ -271,32 +251,11 @@ const App = () => {
                     <Route path="/decrease" component={DecreaseTable}/>
                     <Route path="/marks" component={MarksTable} />
                     <Route path="/measures" component={MeasuresTable} />
-
-
+                    <Route path="/entrys" component={EntrysTable}/>
+                    <Route path="/providers" component={ProvidersTable}/>
 
 
                     <Route path="/formlayout" component={FormLayoutDemo} />
-                    <Route path="/input" component={InputDemo} />
-                    <Route path="/floatlabel" component={FloatLabelDemo} />
-                    <Route path="/invalidstate" component={InvalidStateDemo} />
-                    <Route path="/button" component={ButtonDemo} />
-                    <Route path="/table" component={TableDemo} />
-                    <Route path="/list" component={ListDemo} />
-                    <Route path="/tree" component={TreeDemo} />
-                    <Route path="/panel" component={PanelDemo} />
-                    <Route path="/overlay" component={OverlayDemo} />
-                    <Route path="/media" component={MediaDemo} />
-                    <Route path="/menu" component={MenuDemo} />
-                    <Route path="/messages" component={MessagesDemo} />
-                    <Route path="/blocks" component={BlocksDemo} />
-                    <Route path="/icons" component={IconsDemo} />
-                    <Route path="/file" component={FileDemo} />
-                    <Route path="/chart" render={() => <ChartDemo colorMode={layoutColorMode} location={location} />} />
-                    <Route path="/misc" component={MiscDemo} />
-                    <Route path="/timeline" component={TimelineDemo} />
-                    <Route path="/crud" component={Crud} />
-                    <Route path="/empty" component={EmptyPage} />
-                    <Route path="/documentation" component={Documentation} />
                 </div>
 
                 <AppFooter layoutColorMode={layoutColorMode} />
