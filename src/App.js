@@ -16,9 +16,11 @@ import LocationTable from './components/location/location';
 import DecreaseTable from './components/decrease/decrease';
 import MarksTable from './components/marks/marks';
 import MeasuresTable from './components/measures/measures';
-import EntrysTable from './components/entrys/entry'
-import ProvidersTable from './components/providers/providers'
-
+import EntrysTable from './components/entrys/entry';
+import ProvidersTable from './components/providers/providers';
+import CostumersTable from './components/costumers/customers';
+import EmployeesTable from './components/employees/employees';
+import RolesTable from './components/roles/roles';
 
 
 //import Dashboard from './components/Dashboard';
@@ -179,16 +181,16 @@ const App = () => {
             label: 'Salidas', icon: 'pi pi-fw pi-sitemap',
             items: [
                 { label: 'Ventas', icon: 'pi pi-fw pi-id-card', to: '/formlayout' },
-                { label: 'Clientes', icon: 'pi pi-fw pi-check-square', to: '/input' },
+                { label: 'Clientes', icon: 'pi pi-fw pi-check-square', to: '/costumers' },
             ]
         },
         {
             label: 'Acceso', icon: 'pi pi-fw pi-sitemap',
             items: [
-                { label: 'Empleados', icon: 'pi pi-fw pi-id-card', to: '/formlayout' },
-                { label: 'Roles', icon: 'pi pi-fw pi-check-square', to: '/input' },
-                { label: 'Configuracion', icon: 'pi pi-fw pi-check-square', to: '/input' },
-                { label: 'Perfil', icon: 'pi pi-fw pi-check-square', to: '/input' },
+                { label: 'Empleados', icon: 'pi pi-circle', to: '/employees' },
+                { label: 'Roles', icon: 'pi pi-circle', to: '/roles' },
+                { label: 'Configuracion', icon: 'pi pi-cog', to: '/settings' },
+                { label: 'Perfil', icon: 'pi pi-user', to: '/input' },
             ]
         },
         {
@@ -253,7 +255,10 @@ const App = () => {
                     <Route path="/measures" component={MeasuresTable} />
                     <Route path="/entrys" component={EntrysTable}/>
                     <Route path="/providers" component={ProvidersTable}/>
-
+                    <Route path="/costumers" component={CostumersTable}/>
+                    <Route path="/employees" component={EmployeesTable}/>
+                    <Route path="/roles" component={RolesTable}/>
+                    <Route path="/settings"/>
 
                     <Route path="/formlayout" component={FormLayoutDemo} />
                 </div>

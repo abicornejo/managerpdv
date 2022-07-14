@@ -10,15 +10,15 @@ import { Toast } from 'primereact/toast';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dialog } from 'primereact/dialog';
 
-const ProvidersTable = () => {
-    
-    const unidades = [
-        {nombre:'Femsa', direccion: 'Texcoco', telefono:'551515522525', rfc:'HJAK558526R4F', giro:'Refrescos', correo:'femsa@femsa.com', estatus:'Activo', codigo:'S4DF8S'}
+const RolesTable = () => {
+    const location = [
+        {nombre:'Administrador', descripcion:'Acceso a todo', estatus:'Activo'}
     ];
     const iconsOption = (rowData) =>{
         return(
             <div>
-                <Button icon="pi pi-pencil" className="p-button-rounded p-button-warning btn-size me-2" aria-label="Editar" onClick={() => editProduct(rowData)}/>
+                <Button icon="pi pi-list" className="p-button-rounded btn-size me-1" aria-label="Privilegios"/>
+                <Button icon="pi pi-pencil" className="p-button-rounded p-button-warning btn-size me-1" aria-label="Editar" onClick={() => editProduct(rowData)}/>
                 <Button icon="pi pi-trash" className="p-button-rounded p-button-danger btn-size" aria-label="Eliminar" onClick={() => confirmDeleteProduct(rowData)}/>
             </div>
         )
@@ -26,17 +26,18 @@ const ProvidersTable = () => {
     let emptyProduct = {
         id: null,
         nombre: '',
-        clave: '',
         descripcion: '',
         estado: null
     };
 
-    const [products, setProducts] = useState(unidades);
+    const [products, setProducts] = useState(location);
     const [productDialog, setProductDialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     const [product, setProduct] = useState(emptyProduct);
+    const [selectedProducts, setSelectedProducts] = useState(null);
     const [submitted, setSubmitted] = useState(false);
     const toast = useRef(null);
+    const dt = useRef(null);
     
 
     const openNew = () => {
@@ -80,7 +81,6 @@ const ProvidersTable = () => {
     const formik = useFormik({
         initialValues: {
             nombre: '',
-            clave: '',
             categoria: null
         },
         validate: (data) => {
@@ -132,6 +132,13 @@ const ProvidersTable = () => {
         setProduct(_product);
     }
 
+    const onInputNumberChange = (e, name) => {
+        const val = e.value || 0;
+        let _product = {...product};
+        _product[`${name}`] = val;
+
+        setProduct(_product);
+    }
     const hideDeleteProductDialog = () => {
         setDeleteProductDialog(false);
     }
@@ -162,19 +169,16 @@ const ProvidersTable = () => {
             <div className="col-12 md:col-12">
                 <div className="card">
                     <div className=' header-content'>
-                        <h5>Catalogo de Provedores</h5>
+                        <h5>Catalogo de Roles</h5>
                     </div>
                     <form onSubmit={formik.handleSubmit}>
                         <div className='d-flex flex-wrap'>
-                            <div className="field col-lg-3 col-12 p-fluid">
-                                <div>Provedor</div>
+                            <div className="field col-lg-4 col-12 p-fluid">
+                                <div>Nombre</div>
                                 <InputText type="search" placeholder='Nombre' name="nombre" value={formik.values.nombre} onChange={formik.handleChange}/>
                             </div>
-                            <div className="field col-lg-3 col-12 p-fluid">
-                                <div>R.F.C.</div>
-                                <InputText type="search" placeholder='R.F.C' name="clave" value={formik.values.clave} onChange={formik.handleChange}/>
-                            </div>
-                            <div className="field col-lg-3 col-12 p-fluid">
+                            
+                            <div className="field col-lg-4 col-12 p-fluid">
                                 <div htmlFor="name1">Estatus</div>
                                 <Dropdown placeholder='--Seleccione--' name="categoria" value={formik.values.categoria} onChange={formik.handleChange} /*options={countries} optionLabel="name"*//>
                             </div>
@@ -189,49 +193,24 @@ const ProvidersTable = () => {
                             dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
                             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown">
                             <Column field="nombre" header="Nombre"></Column>
-                            <Column field="direccion" header="Direccion"></Column>
-                            <Column field='telefono' header='Telefono'></Column>
-                            <Column field="rfc" header="RFC"></Column>
-                            <Column field='giro' header='Giro'></Column>
-                            <Column field="correo" header="Correo"></Column>
+                            <Column field="descripcion" header="Descripcion"></Column>
                             <Column field="estatus" header="Estatus"></Column>
-                            <Column field='codigo' header='Codigo'></Column>
                             <Column field="opciones" body={iconsOption} header="Opciones"></Column>
                         </DataTable>
                     </div>
-                    <Dialog visible={productDialog} style={{ width: '450px' }} header="Detalles de Provedores" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
+                    <Dialog visible={productDialog} style={{ width: '450px' }} header="Detalles de Roles" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
                         <div className="field">
                             <label htmlFor="name">Nombre</label>
-                            <InputText id="name" value={product.nombre} onChange={(e) => onInputChange(e, 'nombre')} required autoFocus className={classNames({ 'p-invalid': submitted && !product.nombre })} />
-                            {submitted && !product.nombre && <small className="p-error">Name is required.</small>}
+                            <InputText id="nombre" value={product.nombre} onChange={(e) => onInputChange(e, 'nombre')} required autoFocus className={classNames({ 'p-invalid': submitted && !product.nombre })} />
+                            {submitted && !product.ubicacion && <small className="p-error">Nombre is required.</small>}
                         </div>
                         <div className="field">
-                            <label htmlFor="description">Direccion</label>
+                            <label htmlFor="description">Descripcion</label>
                             <InputTextarea id="descripcion" value={product.descripcion} onChange={(e) => onInputChange(e, 'descripcion')} required rows={3} cols={20} />
-                        </div>
-                        <div className="field">
-                            <label htmlFor="name">Telefono</label>
-                            <InputText id="name" value={product.clave} onChange={(e) => onInputChange(e, 'clave')} required autoFocus/>
-                        </div>
-                        <div className="field">
-                            <label htmlFor="name">RFC</label>
-                            <InputText id="name" value={product.clave} onChange={(e) => onInputChange(e, 'clave')} required autoFocus/>
-                        </div>
-                        <div className="field">
-                            <label htmlFor="name">Giro</label>
-                            <InputText id="name" value={product.clave} onChange={(e) => onInputChange(e, 'clave')} required autoFocus/>
-                        </div>
-                        <div className="field">
-                            <label htmlFor="name">Correo</label>
-                            <InputText id="name" value={product.clave} onChange={(e) => onInputChange(e, 'clave')} required autoFocus/>
                         </div>
                         <div className="field">
                             <label htmlFor="estado">Estado</label>
                             <Dropdown id="estado" name='estado' value={product.estado} onChange={(e) => onCategoryChange(e, 'estado')} required  optionLabel='name'/>
-                        </div>
-                        <div className="field">
-                            <label htmlFor="name">Codigo</label>
-                            <InputText id="name" value={product.clave} onChange={(e) => onInputChange(e, 'clave')} required autoFocus/>
                         </div>
                     </Dialog>
                     <Dialog visible={deleteProductDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
@@ -245,8 +224,9 @@ const ProvidersTable = () => {
         </div>
     )
 }
+
 const comparisonFn = function (prevProps, nextProps) {
     return prevProps.location.pathname === nextProps.location.pathname;
 };
 
-export default React.memo(ProvidersTable, comparisonFn);
+export default React.memo(RolesTable, comparisonFn);

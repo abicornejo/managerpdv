@@ -10,10 +10,10 @@ import { Toast } from 'primereact/toast';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dialog } from 'primereact/dialog';
 
-const ProvidersTable = () => {
+const EmployeesTable = () => {
     
     const unidades = [
-        {nombre:'Femsa', direccion: 'Texcoco', telefono:'551515522525', rfc:'HJAK558526R4F', giro:'Refrescos', correo:'femsa@femsa.com', estatus:'Activo', codigo:'S4DF8S'}
+        {nombre:'Alicia', edad: '50', direccion: 'Texcoco', correo:'alicia@alicia.com', rfc:'HJAK558526R4F', rol: 'Administradora', estatus:'Activo'}
     ];
     const iconsOption = (rowData) =>{
         return(
@@ -26,8 +26,13 @@ const ProvidersTable = () => {
     let emptyProduct = {
         id: null,
         nombre: '',
-        clave: '',
-        descripcion: '',
+        edad: 0,
+        direccion: "",
+        telefono: '',
+        celular: '',
+        correo: '',
+        rfc: '',
+        rol: null,
         estado: null
     };
 
@@ -162,7 +167,7 @@ const ProvidersTable = () => {
             <div className="col-12 md:col-12">
                 <div className="card">
                     <div className=' header-content'>
-                        <h5>Catalogo de Provedores</h5>
+                        <h5>Catalogo de Empleados</h5>
                     </div>
                     <form onSubmit={formik.handleSubmit}>
                         <div className='d-flex flex-wrap'>
@@ -189,49 +194,60 @@ const ProvidersTable = () => {
                             dataKey="id" paginator rows={10} rowsPerPageOptions={[5, 10, 25]}
                             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown">
                             <Column field="nombre" header="Nombre"></Column>
+                            <Column field="edad" header="Edad"></Column>
+                            <Column field='correo' header='Correo'></Column>
                             <Column field="direccion" header="Direccion"></Column>
-                            <Column field='telefono' header='Telefono'></Column>
-                            <Column field="rfc" header="RFC"></Column>
-                            <Column field='giro' header='Giro'></Column>
-                            <Column field="correo" header="Correo"></Column>
+                            <Column field='rfc' header='RFC'></Column>
+                            <Column field="rol" header="Rol"></Column>
                             <Column field="estatus" header="Estatus"></Column>
-                            <Column field='codigo' header='Codigo'></Column>
                             <Column field="opciones" body={iconsOption} header="Opciones"></Column>
                         </DataTable>
                     </div>
-                    <Dialog visible={productDialog} style={{ width: '450px' }} header="Detalles de Provedores" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
+                    <Dialog visible={productDialog} style={{ width: '450px' }} header="Detalles de Empleados" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
                         <div className="field">
                             <label htmlFor="name">Nombre</label>
                             <InputText id="name" value={product.nombre} onChange={(e) => onInputChange(e, 'nombre')} required autoFocus className={classNames({ 'p-invalid': submitted && !product.nombre })} />
                             {submitted && !product.nombre && <small className="p-error">Name is required.</small>}
                         </div>
                         <div className="field">
+                            <label htmlFor="name">Edad</label>
+                            <InputText id="name" value={product.edad} onChange={(e) => onInputChange(e, 'edad')} required autoFocus/>
+                        </div>
+                        <div className="field">
                             <label htmlFor="description">Direccion</label>
-                            <InputTextarea id="descripcion" value={product.descripcion} onChange={(e) => onInputChange(e, 'descripcion')} required rows={3} cols={20} />
+                            <InputTextarea id="descripcion" value={product.direccion} onChange={(e) => onInputChange(e, 'direccion')} required rows={3} cols={20} />
+                        </div>
+                        <div className="field">
+                            <label htmlFor="name">R.F.C</label>
+                            <InputText id="name" value={product.rfc} onChange={(e) => onInputChange(e, 'rfc')} required autoFocus/>
                         </div>
                         <div className="field">
                             <label htmlFor="name">Telefono</label>
-                            <InputText id="name" value={product.clave} onChange={(e) => onInputChange(e, 'clave')} required autoFocus/>
+                            <InputText id="name" value={product.telefono} onChange={(e) => onInputChange(e, 'telefono')} required autoFocus/>
                         </div>
                         <div className="field">
-                            <label htmlFor="name">RFC</label>
-                            <InputText id="name" value={product.clave} onChange={(e) => onInputChange(e, 'clave')} required autoFocus/>
-                        </div>
-                        <div className="field">
-                            <label htmlFor="name">Giro</label>
-                            <InputText id="name" value={product.clave} onChange={(e) => onInputChange(e, 'clave')} required autoFocus/>
-                        </div>
-                        <div className="field">
-                            <label htmlFor="name">Correo</label>
-                            <InputText id="name" value={product.clave} onChange={(e) => onInputChange(e, 'clave')} required autoFocus/>
+                            <label htmlFor="name">Celular</label>
+                            <InputText id="name" value={product.celular} onChange={(e) => onInputChange(e, 'celular')} required autoFocus/>
                         </div>
                         <div className="field">
                             <label htmlFor="estado">Estado</label>
                             <Dropdown id="estado" name='estado' value={product.estado} onChange={(e) => onCategoryChange(e, 'estado')} required  optionLabel='name'/>
                         </div>
                         <div className="field">
-                            <label htmlFor="name">Codigo</label>
+                            <label htmlFor="name">Correo</label>
+                            <InputText id="name" value={product.correo} onChange={(e) => onInputChange(e, 'correo')} required autoFocus/>
+                        </div>
+                        <div className="field">
+                            <label htmlFor="name">Password</label>
                             <InputText id="name" value={product.clave} onChange={(e) => onInputChange(e, 'clave')} required autoFocus/>
+                        </div>
+                        <div className="field">
+                            <label htmlFor="name">Repite Password</label>
+                            <InputText id="name" value={product.clave} onChange={(e) => onInputChange(e, 'clave')} required autoFocus/>
+                        </div>
+                        <div className="field">
+                            <label htmlFor="estado">Rol</label>
+                            <Dropdown id="rol" name='rol' value={product.rol} onChange={(e) => onCategoryChange(e, 'rol')} required  optionLabel='name'/>
                         </div>
                     </Dialog>
                     <Dialog visible={deleteProductDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteProductDialogFooter} onHide={hideDeleteProductDialog}>
@@ -249,4 +265,4 @@ const comparisonFn = function (prevProps, nextProps) {
     return prevProps.location.pathname === nextProps.location.pathname;
 };
 
-export default React.memo(ProvidersTable, comparisonFn);
+export default React.memo(EmployeesTable, comparisonFn);

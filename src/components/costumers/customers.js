@@ -10,7 +10,7 @@ import { Toast } from 'primereact/toast';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Dialog } from 'primereact/dialog';
 
-const ProvidersTable = () => {
+const CostumersTable = () => {
     
     const unidades = [
         {nombre:'Femsa', direccion: 'Texcoco', telefono:'551515522525', rfc:'HJAK558526R4F', giro:'Refrescos', correo:'femsa@femsa.com', estatus:'Activo', codigo:'S4DF8S'}
@@ -162,7 +162,7 @@ const ProvidersTable = () => {
             <div className="col-12 md:col-12">
                 <div className="card">
                     <div className=' header-content'>
-                        <h5>Catalogo de Provedores</h5>
+                        <h5>Catalogo de Clientes</h5>
                     </div>
                     <form onSubmit={formik.handleSubmit}>
                         <div className='d-flex flex-wrap'>
@@ -199,7 +199,7 @@ const ProvidersTable = () => {
                             <Column field="opciones" body={iconsOption} header="Opciones"></Column>
                         </DataTable>
                     </div>
-                    <Dialog visible={productDialog} style={{ width: '450px' }} header="Detalles de Provedores" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
+                    <Dialog visible={productDialog} style={{ width: '450px' }} header="Detalles de Clientes" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
                         <div className="field">
                             <label htmlFor="name">Nombre</label>
                             <InputText id="name" value={product.nombre} onChange={(e) => onInputChange(e, 'nombre')} required autoFocus className={classNames({ 'p-invalid': submitted && !product.nombre })} />
@@ -249,4 +249,4 @@ const comparisonFn = function (prevProps, nextProps) {
     return prevProps.location.pathname === nextProps.location.pathname;
 };
 
-export default React.memo(ProvidersTable, comparisonFn);
+export default React.memo(CostumersTable, comparisonFn);
