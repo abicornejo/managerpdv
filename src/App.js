@@ -21,6 +21,9 @@ import ProvidersTable from './components/providers/providers';
 import CostumersTable from './components/costumers/customers';
 import EmployeesTable from './components/employees/employees';
 import RolesTable from './components/roles/roles';
+import Settings from './components/settings/settings'
+import Profile from './components/profile/profile'
+import QuotationTable from './components/quotation/quotation';
 
 
 //import Dashboard from './components/Dashboard';
@@ -190,13 +193,13 @@ const App = () => {
                 { label: 'Empleados', icon: 'pi pi-circle', to: '/employees' },
                 { label: 'Roles', icon: 'pi pi-circle', to: '/roles' },
                 { label: 'Configuracion', icon: 'pi pi-cog', to: '/settings' },
-                { label: 'Perfil', icon: 'pi pi-user', to: '/input' },
+                { label: 'Perfil', icon: 'pi pi-user', to: '/profile' },
             ]
         },
         {
             label: 'Cotizacion', icon: 'pi pi-fw pi-sitemap',
             items: [
-                { label: 'Sencilla', icon: 'pi pi-fw pi-id-card', to: '/formlayout' },
+                { label: 'Sencilla', icon: 'pi pi-fw pi-id-card', to: '/quotation' },
             ]
         },
         {
@@ -258,7 +261,9 @@ const App = () => {
                     <Route path="/costumers" component={CostumersTable}/>
                     <Route path="/employees" component={EmployeesTable}/>
                     <Route path="/roles" component={RolesTable}/>
-                    <Route path="/settings"/>
+                    <Route path="/settings" component={Settings}/>
+                    <Route path='/profile' component={Profile}/>
+                    <Route path="/quotation" component={QuotationTable}/>
 
                     <Route path="/formlayout" component={FormLayoutDemo} />
                 </div>
